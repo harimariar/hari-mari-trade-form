@@ -1,9 +1,0 @@
-{
-  "name": "hari-mari-trade-reference-form",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Trade credit reference request form with NetSuite write-back via Netlify Function",
-  "dependencies": {
-    "oauth-1.0a": "^2.2.6"
-  }
-}
