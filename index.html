@@ -136,6 +136,31 @@
     min-height: 14px;
   }
  
+  .attestation-text {
+    font-size: 12.5px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+ 
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .checkbox-row input[type="checkbox"] {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: #1b3a6b;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+ 
   .form-footer {
     display: flex;
     align-items: center;
@@ -300,6 +325,35 @@
           </div>
         </div>
  
+        <hr class="divider" />
+        <p class="section-header">Authorization</p>
+        <p class="attestation-text">
+          The information provided in this request is complete and accurate to the best of my
+          knowledge, and is submitted for Hari Mari's consideration in extending trade credit
+          terms to the above account. By submitting this form, I authorize Hari Mari to contact
+          the trade references listed above, and any relevant credit reporting agencies, to
+          verify this information.
+        </p>
+        <div class="field-grid two-col" style="margin-top:16px;">
+          <div class="field">
+            <label>Printed Name<span class="req">*</span></label>
+            <input type="text" id="signerName" required>
+            <div class="field-error"></div>
+          </div>
+          <div class="field">
+            <label>Title<span class="req">*</span></label>
+            <input type="text" id="signerTitle" required>
+            <div class="field-error"></div>
+          </div>
+        </div>
+        <div class="field-grid" style="margin-top:12px;">
+          <label class="checkbox-row">
+            <input type="checkbox" id="agreeCheckbox">
+            <span>I certify the information above is accurate and authorize Hari Mari to verify these references.<span class="req">*</span></span>
+          </label>
+          <div class="field-error" id="agreeError"></div>
+        </div>
+ 
         <div class="banner" id="submitError"></div>
  
         <div class="form-footer">
@@ -381,6 +435,11 @@
     document.querySelectorAll('input').forEach(el => el.classList.remove('invalid'));
   }
  
+  const signerName = document.getElementById('signerName');
+  const signerTitle = document.getElementById('signerTitle');
+  const agreeCheckbox = document.getElementById('agreeCheckbox');
+  const agreeError = document.getElementById('agreeError');
+ 
   function validate(){
     clearFieldErrors();
     let ok = true;
@@ -394,6 +453,20 @@
         }
       });
     });
+ 
+    [signerName, signerTitle].forEach(input => {
+      if(!input.value.trim()){
+        input.classList.add('invalid');
+        input.parentElement.querySelector('.field-error').textContent = 'Required';
+        ok = false;
+      }
+    });
+ 
+    if(!agreeCheckbox.checked){
+      agreeError.textContent = 'Please check this box to continue';
+      ok = false;
+    }
+ 
     return ok;
   }
  
@@ -452,4 +525,3 @@
 </script>
 </body>
 </html>
- 
